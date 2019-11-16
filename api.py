@@ -12,9 +12,16 @@ def lister_parties(idul):
     rep = requests.get(url_base+'lister/', params={'idul': f'{idul}'})
     if rep.status_code == 200:
         rep = rep.json()
-        print(rep)
+        try:
+            if "message" in rep:
+                raise RuntimeError
+            else:
+                return rep
+        except RuntimeError as err:
+            raise err(rep['message'])
+        
 
     else:
         print(f"Le GET sur {url_base+'lister'} a produit le code d'erreur {rep.status_code}.")
-        raise RuntimeError(idul)
+        
 
