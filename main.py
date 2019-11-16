@@ -1,4 +1,5 @@
 import argparse
+from api import lister_parties
 
 
 def analyser_commande():
@@ -8,25 +9,43 @@ def analyser_commande():
     args = parser.parse_args()
     return args
 
-
-
-print(analyser_commande())
-
-
 if __name__ =='__main__':
     analyser_commande()
 
 
 def afficher_damier_ascii(gamestate):
-    version_1 = f'Légende: 1={idul}, 2=automate \n'
-    version_1 += '   ' + 35 * '-' + '\n'
-    version_1 += '9 | .   .   .   .   .   .   .   .   . |\n  |                                   |\n8 | .   .   .   .   .   .   .   .   . |  \n|                                   |\n7 | .   .   .   .   .   .   .   .   . |  \n|                                   |\n6 | .   .   .   .   .   .   .   .   . |\n
-  |                                   |\n
-5 | .   .   .   .   .   .   .   .   . |\n
-  |                                   |\n
-4 | .   .   .   .   .   .   .   .   . |\n
-  |                                   |\n
-3 | .   .   .   .   .   .   .   .   . |\n   |                                   |\n2 | .   .   .   .   .   .   .   .   . |\n    |                                   |\n1 | .   .   .   .   .   .   .   .   . |\n    --|-----------------------------------\n| 1   2   3   4   5   6   7   8   9'
-    print(version_1)
+    #json.loads(gamestate)
+    
+    haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]} 2=automate\n'
+    haut += '   -----------------------------------\n'
+    bas = '--|-----------------------------------\n'
+    bas += '  | 1   2   3   4   5   6   7   8   9'
+    liste_vide = []
+    for i in range(18,1,-1):
+        style_damier_1 = list(f"{i//2} | .   .   .   .   .   .   .   .   . |")
+        style_damier_2 = list("  |                                   |")
+        if i%2 == 0:
+            liste_vide.append(style_damier_1)
+        else:
+            liste_vide.append(style_damier_2)
+            
+            
+    for i in range(2):
+        liste_vide[18-2*gamestate["joueurs"][i]["pos"][1]][4*gamestate["joueurs"][i]["pos"][0]] = f'{i+1}'
+        print(gamestate["joueurs"][i]["pos"][1])
+        print(gamestate["joueurs"][i]["pos"][0])
+    
+    damier = []
+    for ligne in liste_vide:
+        damier += ligne + ['\n']
+    a = ''.join(damier)
+    
+    
+    
+    print(haut + a + bas)
 
-print(afficher_damier)
+afficher_damier_ascii(gamestate)
+    
+
+    
+    
