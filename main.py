@@ -4,8 +4,8 @@ from api import lister_parties
 
 état = {
     "joueurs": [
-        {"nom": "rapre8", "murs": 7, "pos": [9, 9]}, 
-        {"nom": "automate", "murs": 3, "pos": [1, 9]}
+        {"nom": "idul", "murs": 7, "pos": [5, 5]}, 
+        {"nom": "automate", "murs": 3, "pos": [8, 6]}
     ], 
     "murs": {
         "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]], 
@@ -29,7 +29,7 @@ if __name__ =='__main__':
 
 def afficher_damier_ascii(gamestate):
     
-    haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]} 2=automate\n'
+    haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]}, 2=automate\n'
     haut += '   -----------------------------------\n'
     bas = '--|-----------------------------------\n'
     bas += '  | 1   2   3   4   5   6   7   8   9'
