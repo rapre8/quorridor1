@@ -2,6 +2,20 @@ import argparse
 from api import lister_parties
 
 
+état = {
+    "joueurs": [
+        {"nom": "rapre8", "murs": 7, "pos": [9, 9]}, 
+        {"nom": "automate", "murs": 3, "pos": [1, 9]}
+    ], 
+    "murs": {
+        "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]], 
+        "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]
+    }
+}
+
+
+gamestate = état
+
 def analyser_commande():
     parser = argparse.ArgumentParser(description="Jeu Quoridor - phase 1")
     parser.add_argument('idul', type=str, help='IDUL du joueur.')
@@ -14,7 +28,6 @@ if __name__ =='__main__':
 
 
 def afficher_damier_ascii(gamestate):
-    #json.loads(gamestate)
     
     haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]} 2=automate\n'
     haut += '   -----------------------------------\n'
@@ -32,8 +45,17 @@ def afficher_damier_ascii(gamestate):
             
     for i in range(2):
         liste_vide[18-2*gamestate["joueurs"][i]["pos"][1]][4*gamestate["joueurs"][i]["pos"][0]] = f'{i+1}'
-        print(gamestate["joueurs"][i]["pos"][1])
-        print(gamestate["joueurs"][i]["pos"][0])
+    
+    
+    for i in range(len(gamestate["murs"]["horizontaux"])):
+        for j in range(7):
+            liste_vide[19-2*gamestate["murs"]["horizontaux"][i][1]][4*gamestate["murs"]["horizontaux"][i][0]+j-1] = '-'
+    
+    for i in range(len(gamestate["murs"]["verticaux"])):
+        for j in range(3):
+            liste_vide[18-2*gamestate["murs"]["verticaux"][i][1]-j][4*gamestate["murs"]["verticaux"][i][0]-2] = '|'
+
+
     
     damier = []
     for ligne in liste_vide:
@@ -45,7 +67,3 @@ def afficher_damier_ascii(gamestate):
     print(haut + a + bas)
 
 afficher_damier_ascii(gamestate)
-    
-
-    
-    
