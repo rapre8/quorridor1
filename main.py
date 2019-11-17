@@ -1,20 +1,9 @@
 import argparse
-from api import lister_parties
+from api import lister_parties, débuter_partie, jouer_coup
 
-#dicitonnaire de test pour vérifier ma fonction afficher_damier_ascii
-état = {
-    "joueurs": [
-        {"nom": "idul", "murs": 7, "pos": [5, 5]}, 
-        {"nom": "automate", "murs": 3, "pos": [8, 6]}
-    ], 
-    "murs": {
-        "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]], 
-        "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]
-    }
-}
 
 #on pose la vairable gamestate, avec laquelle ma fonction a été programée
-gamestate = état
+gamestate = 'état'
 
 #première fonction, sert à récupérer les commanees tapées dans le terminal
 def analyser_commande():
@@ -28,18 +17,28 @@ def analyser_commande():
 if __name__ =='__main__':
     analyser_commande()
 
+idul = analyser_commande().idul
+
+
+
+
 #deuxieme fonction, sert à affichr le damier à partir d'un état fourni (nommé gamestate dans mon cas)
+
 def afficher_damier_ascii(gamestate):
+
     #sert à créer les parties du damier qui ne changeront jamais, soit les deux lignes du haut et du bas
+
     haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]}, 2=automate\n'
     haut += '   -----------------------------------\n'
     bas = '--|-----------------------------------\n'
     bas += '  | 1   2   3   4   5   6   7   8   9'
+
     # on initialise une liste vide, dans laquelle on définit deux types de rangées
     # les rangées contenant les chiffres (style 1) et les rangées vides (style 2)
     # on finit par ajouter ces fonctions dans la liste vide, une apres l'autre.
     # cela permet de faire une liste contenant chaque lines. 
     # Chaque ligne est elle-même une liste contenant chaque caractère.  
+
     liste_vide = []
     for i in range(18,1,-1):
         style_damier_1 = list(f"{i//2} | .   .   .   .   .   .   .   .   . |")
