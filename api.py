@@ -31,9 +31,7 @@ def lister_parties(idul):
         
 def débuter_partie(idul):
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
-
     rep = requests.post(url_base+'débuter/', data={'idul': f'{idul}'})
-    
     rep = rep.json()
     try:
         if "message" in rep:
@@ -57,10 +55,10 @@ def jouer_coup(id_partie, type_coup, position):
         elif "gagnant" in rep:
             raise StopIteration
         else:
-            return (rep['id_partie'],rep['état'])
+            return (rep['état'])
     except (RuntimeError, StopIteration):
         if "message" in rep:
             return (rep['message'])
         elif "gagnant" in rep:
+            jouer_coup.gagnant = rep['gagnant']
             return (rep['gagnant'])
-
