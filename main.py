@@ -9,18 +9,16 @@ gamestate = 'état'
 def analyser_commande():
     parser = argparse.ArgumentParser(description="Jeu Quoridor - phase 1")
     parser.add_argument('idul', type=str, help='IDUL du joueur.')
-    parser.add_argument('-l', '--lister', metavar='', help='Lister les identifiants de vos 20 dernières parties.')
+    parser.add_argument('-l', '--lister', action = 'store_true', help='Lister les identifiants de vos 20 dernières parties.')
     args = parser.parse_args()
+    analyser_commande.idul = args.idul
+    if args.lister:
+        return lister_parties(args.idul)
     return args
 
 #sert à activer la fonction analyser commande
 if __name__ =='__main__':
     analyser_commande()
-
-idul = analyser_commande().idul
-
-
-
 
 #deuxieme fonction, sert à affichr le damier à partir d'un état fourni (nommé gamestate dans mon cas)
 
@@ -86,4 +84,9 @@ def afficher_damier_ascii(gamestate):
     
     print(haut + a + bas)
 
-afficher_damier_ascii(gamestate)
+
+tuple_id_état = débuter_partie(analyser_commande.idul)
+if len(tuple_id_état) > 0:
+    afficher_damier_ascii(tuple_id_état[1])
+    jouer_coup(tuple_id_état[0], )
+

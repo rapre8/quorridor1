@@ -43,8 +43,6 @@ def débuter_partie(idul):
     except RuntimeError:
         return (rep['message'])
         
-
-    
 # explications
 
 def jouer_coup(id_partie, type_coup, position):
@@ -66,8 +64,3 @@ def jouer_coup(id_partie, type_coup, position):
         elif "gagnant" in rep:
             return (rep['gagnant'])
 
-
-
-        
-
-print('hello')
