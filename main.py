@@ -26,7 +26,7 @@ def afficher_damier_ascii(gamestate):
 
     #sert à créer les parties du damier qui ne changeront jamais, soit les deux lignes du haut et du bas
 
-    haut = f'Légende: 1={gamestate["joueurs"][0]["nom"]}, 2=automate\n'
+    haut = f'Légende: 1={analyser_commande.idul}, 2=automate\n'
     haut += '   -----------------------------------\n'
     bas = '--|-----------------------------------\n'
     bas += '  | 1   2   3   4   5   6   7   8   9'
@@ -39,7 +39,7 @@ def afficher_damier_ascii(gamestate):
 
     liste_vide = []
     for i in range(18,1,-1):
-        style_damier_1 = list(f"{i//2} | .   .   .   .   .   .   .   .   . |")
+        style_damier_1 = list(f"{i // 2} | .   .   .   .   .   .   .   .   . |")
         style_damier_2 = list("  |                                   |")
         if i%2 == 0:
             liste_vide.append(style_damier_1)
@@ -56,7 +56,7 @@ def afficher_damier_ascii(gamestate):
     # On utilise un raisonnemnt similaire pour la coordonnée 'x' des joueurs.         
 
     for i in range(2):
-        liste_vide[18-2*gamestate["joueurs"][i]["pos"][1]][4*gamestate["joueurs"][i]["pos"][0]] = f'{i+1}'
+        liste_vide[18 - 2 * gamestate["joueurs"][i]["pos"][1]][4 * gamestate["joueurs"][i]["pos"][0]] = f'{i+1}'
     
     # On utilise uje méthode presqu'identique à celle pour placer les joueurs,
     # à la différence près que l,on rajoute une 2e boucle afin de placer chacun des caractères supplémentaires
@@ -64,11 +64,11 @@ def afficher_damier_ascii(gamestate):
     
     for i in range(len(gamestate["murs"]["horizontaux"])):
         for j in range(7):
-            liste_vide[19-2*gamestate["murs"]["horizontaux"][i][1]][4*gamestate["murs"]["horizontaux"][i][0]+j-1] = '-'
+            liste_vide[19 - 2 * gamestate["murs"]["horizontaux"][i][1]][4 * gamestate["murs"]["horizontaux"][i][0] + j - 1] = '-'
     
     for i in range(len(gamestate["murs"]["verticaux"])):
         for j in range(3):
-            liste_vide[18-2*gamestate["murs"]["verticaux"][i][1]-j][4*gamestate["murs"]["verticaux"][i][0]-2] = '|'
+            liste_vide[18 - 2 * gamestate["murs"]["verticaux"][i][1]-j][4 * gamestate["murs"]["verticaux"][i][0] - 2] = '|'
     
     # On crée ensuite une liste vide
 
@@ -84,14 +84,19 @@ def afficher_damier_ascii(gamestate):
     
     print(haut + a + bas)
 
-if __name__ == '__main__':
-    tuple_id_état = débuter_partie(analyser_commande.idul)
-    if len(tuple_id_état) > 0:
-        afficher_damier_ascii(tuple_id_état[1])
-        a = input('type de coup')
-        b = input('''position de l'action''')
-        jouer_coup(tuple_id_état[0], a, b)
-
-
-
-
+tuple_id_état = débuter_partie(analyser_commande.idul)
+if len(tuple_id_état) > 1:
+    afficher_damier_ascii(tuple_id_état[1])
+    while True:
+        a = input('type de coup (D, MH, MV): ')
+        b = input('''position de l'action (x,y): ''')
+        yolo = jouer_coup(tuple_id_état[0], a, b)
+        if type(yolo) == str:
+            afficher_damier_ascii(yolo)
+            print(yolo)
+            break
+        afficher_damier_ascii(yolo)
+        
+        
+else:
+    print(tuple_id_état)
