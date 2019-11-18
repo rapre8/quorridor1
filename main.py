@@ -90,3 +90,6 @@ if len(tuple_id_état) > 0:
     afficher_damier_ascii(tuple_id_état[1])
     jouer_coup(tuple_id_état[0], )
 
+
+
+yeet
