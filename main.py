@@ -84,12 +84,14 @@ def afficher_damier_ascii(gamestate):
     
     print(haut + a + bas)
 
+if __name__ == '__main__':
+    tuple_id_état = débuter_partie(analyser_commande.idul)
+    if len(tuple_id_état) > 0:
+        afficher_damier_ascii(tuple_id_état[1])
+        a = input('type de coup')
+        b = input('''position de l'action''')
+        jouer_coup(tuple_id_état[0], a, b)
 
-tuple_id_état = débuter_partie(analyser_commande.idul)
-if len(tuple_id_état) > 0:
-    afficher_damier_ascii(tuple_id_état[1])
-    jouer_coup(tuple_id_état[0], )
 
 
 
-yeet

@@ -26,8 +26,8 @@ def lister_parties(idul):
     else:
         print(f"Le GET sur {url_base+'lister'} a produit le code d'erreur {rep.status_code}.")
 
-# Même principe que pour la fonction précédente au niveau du contact du serveur et du traitement de l'erreur,
-# mais retourne l'id de partie et l'état cette fois
+# Même principe que pour la fonction précédente,
+# mais retourne l'id de partie débutée et l'état du damier.
         
 def débuter_partie(idul):
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
